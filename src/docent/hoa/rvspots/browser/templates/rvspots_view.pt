@@ -35,7 +35,7 @@
                 <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href string:${python:spot.absolute_url()}/edit">update</a> -
                     <a href="" tal:attributes="href python:view.getClearURL(spot)">clear</a></td>
                 <td tal:content="spot/spot_size"></td>
-                <td tal:content="string:$${spot/spot_cost}|nothing"></td>
+                <td><span tal:condition="spot/spot_cost" tal:replace="string:$${spot/spot_cost}" /></td>
                 <td><a href="" tal:attributes="href string:mailto:${python:view.getOwnerEmail(spot)}"><span tal:replace="python:view.getOwnerFullname(spot)" /></a></td>
                 <td tal:define="homeowner_contract nocall:spot/homeowner_contract"><a tal:condition="nocall:homeowner_contract"
                                                                                       href="" tal:attributes="href string:${spot/absolute_url}/@@download/homeowner_contract/${homeowner_contract/filename}">contract</a></td>
@@ -49,7 +49,7 @@
             <tr tal:condition="not:hasEdit" tal:repeat="spot spots">
                 <td tal:content="spot/title"></td>
                 <td tal:content="spot/spot_size"></td>
-                <td tal:content="string:$${spot/spot_cost}|nothing"></td>
+                <td><span tal:condition="spot/spot_cost" tal:replace="string:$${spot/spot_cost}" /></td>
                 <td tal:content="python:view.getUnmanagedOwner(spot)"></td>
                 <td><a tal:condition="python:view.isContractOwner(spot)" href="" tal:attributes="href python:view.getOwnerContractURL">contract</a></td>
                 <td tal:content="python:view.getUnmanagedRenter(spot)"></td>
