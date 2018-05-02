@@ -45,7 +45,7 @@ class RVSpots(Container):
             else:
                 spot_obj = createContent('docent.hoa.rvspot',
                                          id=spot_id.encode('ascii', 'ignore'),
-                                         title=u"RV Spot %s" % id_iter)
+                                         title=u"Spot %s" % id_iter)
                 self._setObject(spot_id.encode('ascii', 'ignore'), spot_obj)
                 setattr(spot_obj, 'spot_id', id_iter)
 

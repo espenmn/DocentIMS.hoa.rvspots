@@ -62,7 +62,7 @@ class RVSpotsView(BrowserView):
             return ''
 
     def getRenterFullname(self, spot_obj):
-        renter_id = getattr(spot_obj, 'homeowner', '') or ''
+        renter_id = getattr(spot_obj, 'renter', '') or ''
         if renter_id:
             renter_data = api.user.get(userid=renter_id)
             return renter_data.getProperty('fullname')
