@@ -26,6 +26,7 @@
                                   width picture/_width | nothing;"
                                   />
         </div>
+        <div tal:content="structure context/body/output"></div>
         <h2>Rental Table</h2>
         <table tal:define="spots view/getSpots;
                            hasEdit view/hasEditPermissions;">
