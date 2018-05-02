@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="docent.hoa.rvspots">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+        tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading" tal:content="context/title" />
+        <p class="discreet" tal:condition="context/description" tal:content="context/description"></p>
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
+        <div tal:define="spot_map nocall:context/spot_map"
+             tal:condition="nocall:spot_map">
+             <img tal:attributes="src string:${context/absolute_url}/@@download/spot_map/${spot_map/filename};
+                                  height picture/_height | nothing;
+                                  width picture/_width | nothing;"
+                                  />
+        </div>
+        <h2>Rental Table</h2>
+        <table tal:define="spots view/getSpots;
+                           hasEdit view/hasEditPermissions;">
+            <tr><th>Id</th><th>Size</th><th>Cost</th><th>Homeowner</th><th>Contract</th><th>Renter</th><th>Contract</th><th>Key</th><th>Occupancy</th></tr>
+            <tr tal:condition="hasEdit" tal:repeat="spot spots">
+                <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href string:${python:spot.absolute_url()}/edit">update</a> -
+                    <a href="" tal:attributes="href python:view.getClearURL(spot)">clear</a></td>
+                <td tal:content="spot/spot_size"></td>
+                <td tal:content="spot/spot_cost"></td>
+                <td><a href="" tal:attributes="href string:mailto:${python:view.getOwnerEmail(spot)}"><span tal:replace="python:view.getOwnerFullname(spot)" /></a></td>
+                <td tal:define="homeowner_contract nocall:spot/homeowner_contract"><a tal:condition="nocall:homeowner_contract"
+                                                                                      href="" tal:attributes="href string:${spot/absolute_url}/@@download/homeowner_contract/${homeowner_contract/filename}">contract</a></td>
+                <td><a href="" tal:attributes="href string:mailto:${python:view.getRenterEmail(spot)}"><span tal:replace="python:view.getRenterFullname(spot)" /></a></td>
+                <td tal:define="renter_contract nocall:spot/renter_contract"><a tal:condition="nocall:renter_contract"
+                                                                                      href="" tal:attributes="href string:${spot/absolute_url}/@@download/renter_contract/${renter_contract/filename}">contract</a></td>
+                <td tal:content="spot/key_number|nothing"></td>
+                <td tal:define="occupancy spot/occupancy|nothing; toLocalizedTime nocall: context/@@plone/toLocalizedTime;">
+                    <span tal:condition="occupancy" tal:replace="python:toLocalizedTime(occupancy)" /></td>
+            </tr>
+            <tr tal:condition="not:hasEdit" tal:repeat="spot spots">
+                <td tal:content="spot/title"></td>
+                <td tal:content="spot/spot_size"></td>
+                <td tal:content="spot/spot_cost"></td>
+                <td tal:content="python:view.getUnmanagedOwner(spot)"></td>
+                <td><a tal:condition="python:view.isContractOwner(spot)" href="" tal:attributes="href python:view.getOwnerContractURL">contract</a></td>
+                <td tal:content="python:view.getUnmanagedRenter(spot)"></td>
+                <td><a tal:condition="python:view.isContractRenter(spot)" href="" tal:attributes="href python:view.getRenterContractURL">contract</a></td>
+                <td tal:content="spot/key_number|nothing"></td>
+                <td tal:content="python:view.getUnmanagedOccupancy(spot)"></td>
+            </tr>
+        </table>
+
+
+        <div tal:replace="structure provider:plone.belowcontentbody" />
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

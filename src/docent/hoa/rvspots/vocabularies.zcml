@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="docent.hoa.rvspots">
+
+    <utility
+        name="docent.hoa.rvspots.homeowners"
+        component="docent.hoa.rvspots.vocabularies.IHomeOwnersVocabularyFactory"
+    />
+
+    <utility
+        name="docent.hoa.rvspots.rentersandowners"
+        component="docent.hoa.rvspots.vocabularies.IHomnerRenterVocabularyFactory"
+    />
+
+</configure>

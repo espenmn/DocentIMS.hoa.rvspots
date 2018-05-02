@@ -18,4 +18,18 @@
       directory="static"
       />
 
+  <browser:page
+      name="view"
+      for="docent.hoa.rvspots.content.rvspots.IRVSpots"
+      class="docent.hoa.rvspots.browser.rvspots_view.RVSpotsView"
+      template="templates/rvspots_view.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="clear_spot"
+      for="docent.hoa.rvspots.content.rvspot.IRVSpot"
+      class="docent.hoa.rvspots.browser.clear_spot.ClearSpotView"
+      permission="cmf.ModifyPortalContent"
+      />
 </configure>

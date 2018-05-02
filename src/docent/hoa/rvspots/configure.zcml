@@ -10,6 +10,7 @@
 
   <include package=".browser" />
 
+  <include file="vocabularies.zcml" />
 
   <genericsetup:registerProfile
       name="default"
@@ -33,5 +34,11 @@
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="docent.hoa.rvspots-hiddenprofiles" />
+
+  <subscriber
+    for="docent.hoa.rvspots.content.rvspots.IRVSpots
+         zope.lifecycleevent.interfaces.IObjectAddedEvent"
+      handler=".eventhandlers.after_creation_handler"
+      />
 
 </configure>
