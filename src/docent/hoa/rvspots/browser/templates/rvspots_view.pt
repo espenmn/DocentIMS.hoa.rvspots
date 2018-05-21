@@ -61,6 +61,7 @@
                   <td tal:content="python:view.getUnmanagedInsurance(spot)"></td>
               </tr>
           </table>
+          <p class="discreet" tal:content="view/last_updated"></p>
         <fieldset
         </div>
 

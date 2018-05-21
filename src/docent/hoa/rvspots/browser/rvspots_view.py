@@ -33,7 +33,7 @@ class RVSpotsView(BrowserView):
                 last_modified_DT = mDT
 
         if last_modified_DT:
-            self.last_updated = last_modified_DT.toLocalizedTime()
+            self.last_updated = last_modified_DT.strftime('%b %d %Y - %H:%M:%S')
         else:
             self.last_updated = ''
 
