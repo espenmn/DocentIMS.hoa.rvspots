@@ -19,7 +19,8 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <div class="pat-autotoc autotabs">
+        <div class="pat-autotoc autotabs"
+             data-pat-autotoc="section:fieldset;levels:legend;">
 
         <fieldset>
           <legend>Introduction</legend>
