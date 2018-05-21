@@ -21,6 +21,8 @@ class ClearSpotView(BrowserView):
         setattr(context, 'homeowner_contract', None)
         setattr(context, 'renter_contract', None)
         setattr(context, 'occupancy', None)
+        setattr(context, 'key_number', u'')
+        setattr(context, 'insurance_file', None)
 
         parent = context.aq_parent
         return self.request.response.redirect(parent.absolute_url())

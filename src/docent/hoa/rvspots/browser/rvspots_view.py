@@ -21,7 +21,24 @@ class RVSpotsView(BrowserView):
         current_member_data = api.user.get_current()
         current_member_id = current_member_data.getId()
 
-        self.spots = [i[1] for i in content_items]
+        spots = [i[1] for i in content_items]
+
+        modified_DateTimes = [s.modified() for s in spots]
+        last_modified_DT = None
+        for mDT in modified_DateTimes:
+            if not last_modified_DT:
+                last_modified_DT = mDT
+
+            if mDT.greaterThanEqualTo(last_modified_DT):
+                last_modified_DT = mDT
+
+        if last_modified_DT:
+            self.last_updated = last_modified_DT.toLocalizedTime()
+        else:
+            self.last_updated = ''
+
+
+        self.spots = spots
         self.current_member_data = current_member_data
         self.current_member_id = current_member_id
 
@@ -121,6 +138,15 @@ class RVSpotsView(BrowserView):
                 return ''
             filename = rc_obj.filename
             return '%s/@@download/homeowner_contract/%s' % (self.context.absolute_url(), filename)
+
+    def getUnmanagedInsurance(self, spot_obj):
+        renter_id = getattr(spot_obj, 'renter', '') or ''
+        if self.current_member_id == renter_id:
+            if_obj = getattr(spot_obj, 'insurance_file', None) or None
+            if not if_obj:
+                return ''
+            filename = if_obj.filename
+            return '%s/@@download/insurance_file/%s' % (self.context.absolute_url(), filename)
 
     def getUnmanagedOccupancy(self, spot_obj):
         occupancy = getattr(spot_obj, 'occupancy', None) or None

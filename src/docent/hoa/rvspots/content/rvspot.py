@@ -63,6 +63,10 @@ class IRVSpot(form.Schema):
                                 description=_(u"Start date of occupancy."),
                                 required=False)
 
+    insurance_file = NamedBlobFile(title=_(u"Insurance File"),
+                                        description=_(u"Upload the insurance file."),
+                                        required=False)
+
 class RVSpot(Item):
     """
     """

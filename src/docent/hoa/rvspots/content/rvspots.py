@@ -19,9 +19,6 @@ class IRVSpots(form.Schema):
     """
     Uses IDublinCore
     """
-    spot_map = NamedBlobImage(title=_(u"RV Spot Map"),
-                              description=_(u"Please upload an image of the spot map."),
-                              required=False)
 
     body = RichText(
         title=u"RV Spots Text",
