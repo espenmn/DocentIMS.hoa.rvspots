@@ -24,19 +24,12 @@ class RVSpotsView(BrowserView):
         spots = [i[1] for i in content_items]
 
         modified_DateTimes = [s.modified() for s in spots]
-        last_modified_DT = None
-        for mDT in modified_DateTimes:
-            if not last_modified_DT:
-                last_modified_DT = mDT
-
-            if mDT.greaterThanEqualTo(last_modified_DT):
-                last_modified_DT = mDT
-
-        if last_modified_DT:
+        if modified_DateTimes:
+            sorted_DateTimes = sorted(modified_DateTimes)
+            last_modified_DT = sorted_DateTimes[-1]
             self.last_updated = last_modified_DT.strftime('%b %d %Y - %H:%M:%S')
         else:
             self.last_updated = ''
-
 
         self.spots = spots
         self.current_member_data = current_member_data

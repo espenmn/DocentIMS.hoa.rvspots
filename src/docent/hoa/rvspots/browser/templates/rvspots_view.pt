@@ -31,7 +31,7 @@
           <legend>Rental Spots</legend>
           <table tal:define="spots view/getSpots;
                              hasEdit view/hasEditPermissions;">
-              <tr><th>Id</th><th>Size</th><th>Cost</th><th>Homeowner</th><th>Contract</th><th>Occupant</th><th>Contract</th><th>Key</th><th>Occupancy</th><th>Insurance</th></tr>
+              <tr><th>Spot Number</th><th>Size</th><th>Cost</th><th>Homeowner</th><th>Contract</th><th>Occupant</th><th>Contract</th><th>Key</th><th>Occupancy</th><th>Insurance</th></tr>
               <tr tal:condition="hasEdit" tal:repeat="spot spots">
                   <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href string:${python:spot.absolute_url()}/edit">update</a> -
                       <a href="" tal:attributes="href python:view.getClearURL(spot)">clear</a></td>
