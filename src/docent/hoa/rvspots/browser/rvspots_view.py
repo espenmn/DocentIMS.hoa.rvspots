@@ -51,7 +51,10 @@ class RVSpotsView(BrowserView):
         owner_id = getattr(spot_obj, 'homeowner', '') or ''
         if owner_id:
             owner_data = api.user.get(userid=owner_id)
-            return owner_data.getProperty('email')
+            if owner_data:
+                return owner_data.getProperty('email')
+            else:
+                return 'Member Not Found - Owner'
         else:
             return ''
 
@@ -59,7 +62,10 @@ class RVSpotsView(BrowserView):
         owner_id = getattr(spot_obj, 'homeowner', '') or ''
         if owner_id:
             owner_data = api.user.get(userid=owner_id)
-            return owner_data.getProperty('fullname')
+            if owner_data:
+                return owner_data.getProperty('fullname')
+            else:
+                return 'Member Not Found - Owner'
         else:
             return ''
 
@@ -67,7 +73,10 @@ class RVSpotsView(BrowserView):
         renter_id = getattr(spot_obj, 'renter', '') or ''
         if renter_id:
             renter_data = api.user.get(userid=renter_id)
-            return renter_data.getProperty('email')
+            if renter_data:
+                return renter_data.getProperty('email')
+            else:
+                return 'Member Not Found - Renter'
         else:
             return ''
 
@@ -75,7 +84,10 @@ class RVSpotsView(BrowserView):
         renter_id = getattr(spot_obj, 'renter', '') or ''
         if renter_id:
             renter_data = api.user.get(userid=renter_id)
-            return renter_data.getProperty('fullname')
+            if renter_data:
+                return renter_data.getProperty('fullname')
+            else:
+                return 'Member Not Found - Renter'
         else:
             return ''
 
