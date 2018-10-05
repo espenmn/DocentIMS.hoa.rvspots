@@ -31,7 +31,7 @@
           <legend>Rental Spots</legend>
           <table tal:define="spots view/getSpots;
                              hasEdit view/hasEditPermissions;">
-              <tr><th>Spot Number</th><th>Size</th><th>Cost</th><th>Homeowner</th><th>Contract</th><th>Occupant</th><th>Contract</th><th>Key</th><th>Occupancy</th><th>Insurance</th></tr>
+              <tr><th>Spot Number</th><th>Size</th><th>Cost</th><th>Homeowner</th><th tal:condition="hasEdit">Contract</th><th>Occupant</th><th tal:condition="hasEdit">Contract</th><th>Key</th><th tal:condition="hasEdit">Occupancy Date</th><th tal:condition="hasEdit">Insurance</th></tr>
               <tr tal:condition="hasEdit" tal:repeat="spot spots">
                   <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href string:${python:spot.absolute_url()}/edit">update</a> -
                       <a href="" tal:attributes="href python:view.getClearURL(spot)">clear</a></td>
@@ -54,12 +54,12 @@
                   <td tal:content="spot/spot_size"></td>
                   <td><span tal:condition="spot/spot_cost" tal:replace="string:$${spot/spot_cost}" /></td>
                   <td tal:content="python:view.getUnmanagedOwner(spot)"></td>
-                  <td><a tal:condition="python:view.isContractOwner(spot)" href="" tal:attributes="href python:view.getOwnerContractURL">contract</a></td>
+                  <td tal:condition="hasEdit"><a tal:condition="python:view.isContractOwner(spot)" href="" tal:attributes="href python:view.getOwnerContractURL">contract</a></td>
                   <td tal:content="python:view.getUnmanagedRenter(spot)"></td>
-                  <td><a tal:condition="python:view.isContractRenter(spot)" href="" tal:attributes="href python:view.getRenterContractURL">contract</a></td>
+                  <td tal:condition="hasEdit"><a tal:condition="python:view.isContractRenter(spot)" href="" tal:attributes="href python:view.getRenterContractURL">contract</a></td>
                   <td tal:content="spot/key_number|nothing"></td>
-                  <td tal:content="python:view.getUnmanagedOccupancy(spot)"></td>
-                  <td tal:content="python:view.getUnmanagedInsurance(spot)"></td>
+                  <td tal:condition="hasEdit" tal:content="python:view.getUnmanagedOccupancy(spot)"></td>
+                  <td tal:condition="hasEdit" tal:content="python:view.getUnmanagedInsurance(spot)"></td>
               </tr>
           </table>
           <p class="discreet">last updated - <span tal:replace="view/last_updated" /></p>
