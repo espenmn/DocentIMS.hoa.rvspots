@@ -31,7 +31,7 @@
           <legend>Rental Spots</legend>
           <table tal:define="spots view/getSpots;
                              hasEdit view/hasEditPermissions;">
-              <tr><th>Spot Number</th><th>Size</th><th>Cost</th><th>Homeowner</th><th tal:condition="hasEdit">Contract</th><th>Occupant</th><th tal:condition="hasEdit">Contract</th><th>Key</th><th tal:condition="hasEdit">Occupancy Date</th><th tal:condition="hasEdit">Insurance</th></tr>
+              <tr><th>Spot Number</th><th>Size</th><th>Cost</th><th>Homeowner</th><th tal:condition="hasEdit">Contract</th><th>Occupant</th><th tal:condition="hasEdit">Contract</th><th tal:condition="hasEdit">Key</th><th tal:condition="hasEdit">Occupancy Date</th><th tal:condition="hasEdit">Insurance</th></tr>
               <tr tal:condition="hasEdit" tal:repeat="spot spots">
                   <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href string:${python:spot.absolute_url()}/edit">update</a> -
                       <a href="" tal:attributes="href python:view.getClearURL(spot)">clear</a></td>
@@ -57,7 +57,7 @@
                   <td tal:condition="hasEdit"><a tal:condition="python:view.isContractOwner(spot)" href="" tal:attributes="href python:view.getOwnerContractURL">contract</a></td>
                   <td tal:content="python:view.getUnmanagedRenter(spot)"></td>
                   <td tal:condition="hasEdit"><a tal:condition="python:view.isContractRenter(spot)" href="" tal:attributes="href python:view.getRenterContractURL">contract</a></td>
-                  <td tal:content="spot/key_number|nothing"></td>
+                  <td tal:condition="hasEdit" tal:content="spot/key_number|nothing"></td>
                   <td tal:condition="hasEdit" tal:content="python:view.getUnmanagedOccupancy(spot)"></td>
                   <td tal:condition="hasEdit" tal:content="python:view.getUnmanagedInsurance(spot)"></td>
               </tr>
