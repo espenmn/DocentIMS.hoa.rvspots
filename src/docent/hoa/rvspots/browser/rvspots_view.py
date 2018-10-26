@@ -169,3 +169,7 @@ class RVSpotsView(BrowserView):
     def getClearURL(self, spot_obj):
         spot_url = '%s/clear_spot' % spot_obj.absolute_url()
         return addTokenToUrl(spot_url)
+
+    def getEditURL(self, spot_obj):
+        spot_url = '%s/edit' % spot_obj.absolute_url()
+        return addTokenToUrl(spot_url)

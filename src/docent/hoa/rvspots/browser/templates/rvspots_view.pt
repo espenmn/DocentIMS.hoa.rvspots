@@ -33,7 +33,7 @@
                              hasEdit view/hasEditPermissions;">
               <tr><th>Spot Number</th><th>Size</th><th>Cost</th><th>Homeowner</th><th tal:condition="hasEdit">Contract</th><th>Occupant</th><th tal:condition="hasEdit">Contract</th><th tal:condition="hasEdit">Key</th><th tal:condition="hasEdit">Occupancy Date</th><th tal:condition="hasEdit">Insurance</th></tr>
               <tr tal:condition="hasEdit" tal:repeat="spot spots">
-                  <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href string:${python:spot.absolute_url()}/edit">update</a> -
+                  <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href python:view.getEditURL(spot)">update</a> -
                       <a href="" tal:attributes="href python:view.getClearURL(spot)">clear</a></td>
                   <td tal:content="spot/spot_size"></td>
                   <td><span tal:condition="spot/spot_cost" tal:replace="string:$${spot/spot_cost}" /></td>
