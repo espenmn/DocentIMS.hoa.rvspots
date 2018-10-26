@@ -5,3 +5,5 @@ RENTERS_GID = 'renters'
 PROPERTY_MANAGERS_GID = 'property_managers'
 HOMEOWNER_AND_RENTER_GID = 'owners_and_renters'
 RV_MANAGERS_GID = 'rv_spot_managers'
+
+DATE_STRING = '%Y-%m-%d'
