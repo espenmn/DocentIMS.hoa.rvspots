@@ -106,9 +106,9 @@ def getHomeOwnersVocabulary(group_name):
         else:
             stored_terms.append(('', '', 'No Members'))
             terms.append(SimpleVocabulary.createTerm('', '', 'No Members'))
-
+        
         api.portal.set_registry_record(name='home_owners_tuples_json',
-                                       value=json.dumps(stored_terms),
+                                       value=u'%s' % json.dumps(stored_terms),
                                        interface=IStoreVocabularyData)
 
         api.portal.set_registry_record(name='home_owners_last_build_date',
@@ -172,7 +172,7 @@ def getHomeOwnersAndRentersVocabulary(group_name):
             terms.append(SimpleVocabulary.createTerm('', '', 'No Members'))
 
         api.portal.set_registry_record(name='renters_tuples_json',
-                                       value=json.dumps(stored_terms),
+                                       value=u'%s' % json.dumps(stored_terms),
                                        interface=IStoreVocabularyData)
 
         api.portal.set_registry_record(name='renter_last_build_date',
