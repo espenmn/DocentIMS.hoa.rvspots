@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.dexterity.content import Item, Container
-from plone.directives import form
+# from plone.directives import form
 from plone.namedfile.field import NamedBlobFile
 from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IVocabularyFactory
+from plone.supermodel import model
+from plone.autoform import directives
 
 import logging
 logger = logging.getLogger("Plone")
@@ -18,12 +20,12 @@ def spotCostVocabulary():
         terms.append(SimpleVocabulary.createTerm(str(i), str(i), u"$%s" % i))
     return SimpleVocabulary(terms)
 
-class IRVSpot(form.Schema):
+class IRVSpot(model.Schema):
     """
     Uses IDublinCore
     """
 
-    form.mode(spot_id='display')
+    # model.mode(spot_id='display')
     spot_id = schema.Int(title=_(u"Spot Id"),
                          description=_(u""),
                          required=False,
@@ -40,7 +42,7 @@ class IRVSpot(form.Schema):
 
     homeowner = schema.Choice(title=_(u"Homeowner"),
                               description=_(u"Select the homeowner that is renting this spot."),
-                              vocabulary="docent.hoa.rvspots.homeowners",
+                              vocabulary="docent.hoa.rvspots.vocabularies.HomeOwnerNamesVocabulary",
                               required=False)
 
     homeowner_contract = NamedBlobFile(title=_(u"Owner Contract"),
@@ -49,7 +51,7 @@ class IRVSpot(form.Schema):
 
     renter = schema.Choice(title=_(u"Renter"),
                            description=_(u"Select the renter that will use this spot."),
-                           vocabulary="docent.hoa.rvspots.rentersandowners",
+                           vocabulary="docent.hoa.rvspots.vocabularies.RenterNamesVocabulary",
                            required=False)
 
     renter_contract = NamedBlobFile(title=_(u"Renter Contract"),

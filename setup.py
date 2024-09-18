@@ -14,7 +14,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='docent.hoa.rvspots',
-    version='1.0a1',
+    version='1.0a2',
     description="An add-on for Plone",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -22,6 +22,7 @@ setup(
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: 5.1",
+        "Framework :: Plone :: 6.0",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Operating System :: OS Independent",

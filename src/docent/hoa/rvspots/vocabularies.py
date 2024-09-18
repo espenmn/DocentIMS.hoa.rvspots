@@ -2,8 +2,9 @@
 from plone import api
 from plone.api.exc import GroupNotFoundError
 from Products.CMFCore.utils import getToolByName
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
+from zope.interface import directlyProvides
 from zope.interface import implementer
 from datetime import datetime
 
@@ -53,14 +54,42 @@ def getGroupMemberVocabulary(group_name, multi_group=False):
     stored_terms = []
     if member_fullname_by_id_dict:
         terms.append(SimpleVocabulary.createTerm('', '', 'Choose One'))
-        for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems(), key=lambda (k,v): (v,k)):
-            stored_terms.append((id_key, str(id_key), name_value))
+        for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems):
+            # , key=lambda (k,v): (v,k)):
+            # stored_terms.append((id_key, str(id_key), name_value))
             terms.append(SimpleVocabulary.createTerm(id_key, str(id_key), name_value))
     else:
         stored_terms.append(('', '', 'No Members'))
         terms.append(SimpleVocabulary.createTerm('', '', 'No Members'))
 
     return SimpleVocabulary(terms)
+
+
+def HomeOwnerNamesVocabulary(context):
+    #members = api.user.get_users()
+    members = api.user.get_users(groupname='home_owners')
+    if members:
+        # Create a list of SimpleTerms for each full name
+        terms = [SimpleTerm(value=member.getId(), token=member.getId(), title=member.getProperty('fullname')) for member in members]
+        return SimpleVocabulary(terms)
+    
+    return SimpleVocabulary([])
+
+directlyProvides(HomeOwnerNamesVocabulary, IVocabularyFactory)
+
+
+def RenterNamesVocabulary(context):
+    #members = api.user.get_users()
+    members = api.user.get_users(groupname='renters')
+    if members:
+        # Create a list of SimpleTerms for each full name
+        terms = [SimpleTerm(value=member.getId(), token=member.getId(), title=member.getProperty('fullname')) for member in members]
+        return SimpleVocabulary(terms)
+    
+    return SimpleVocabulary([])
+
+directlyProvides(RenterNamesVocabulary, IVocabularyFactory)
+
 
 
 # @ram.cache(lambda *args: time() // (60 * 60))
@@ -98,10 +127,16 @@ def getHomeOwnersVocabulary(group_name):
 
         terms = []
         stored_terms = []
+        # if member_fullname_by_id_dict:
+        #     terms.append(SimpleVocabulary.createTerm('', '', 'Choose One'))
+        #     for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems(), key=lambda (k,v): (v,k)):
+        #         stored_terms.append((id_key, str(id_key), name_value))
+        #         terms.append(SimpleVocabulary.createTerm(id_key, str(id_key), name_value))
         if member_fullname_by_id_dict:
             terms.append(SimpleVocabulary.createTerm('', '', 'Choose One'))
-            for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems(), key=lambda (k,v): (v,k)):
-                stored_terms.append((id_key, str(id_key), name_value))
+            for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems):
+                # , key=lambda (k,v): (v,k)):
+                # stored_terms.append((id_key, str(id_key), name_value))
                 terms.append(SimpleVocabulary.createTerm(id_key, str(id_key), name_value))
         else:
             stored_terms.append(('', '', 'No Members'))
@@ -162,11 +197,20 @@ def getHomeOwnersAndRentersVocabulary(group_name):
 
         terms = []
         stored_terms = []
+        # if member_fullname_by_id_dict:
+        #     terms.append(SimpleVocabulary.createTerm('', '', 'Choose One'))
+        #     for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems(), key=lambda (k,v): (v,k)):
+        #         stored_terms.append((id_key, str(id_key), name_value))
+        #         terms.append(SimpleVocabulary.createTerm(id_key, str(id_key), name_value))
+        
+        import pdb; pdb.set_trace()
         if member_fullname_by_id_dict:
             terms.append(SimpleVocabulary.createTerm('', '', 'Choose One'))
-            for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems(), key=lambda (k,v): (v,k)):
-                stored_terms.append((id_key, str(id_key), name_value))
+            for id_key, name_value in sorted(member_fullname_by_id_dict.iteritems):
+                # , key=lambda (k,v): (v,k)):
+                # stored_terms.append((id_key, str(id_key), name_value))
                 terms.append(SimpleVocabulary.createTerm(id_key, str(id_key), name_value))
+            
         else:
             stored_terms.append(('', '', 'No Members'))
             terms.append(SimpleVocabulary.createTerm('', '', 'No Members'))

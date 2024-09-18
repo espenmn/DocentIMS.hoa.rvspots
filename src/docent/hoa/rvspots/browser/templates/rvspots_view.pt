@@ -24,23 +24,25 @@
 
         <fieldset>
           <legend>Introduction</legend>
-          <div tal:content="structure context/body/output"></div>
+          <div tal:content="structure context/body/output|None"></div>
 
         </fieldset>
         <fieldset>
           <legend>Rental Spots</legend>
-          <table tal:define="spots view/getSpots;
+          <table class="table-hover listing plain xtable-striped" tal:define="spots view/getSpots;
                              hasEdit view/hasEditPermissions;">
               <tr><th>Spot Number</th><th>Size</th><th>Cost</th><th>Homeowner</th><th tal:condition="hasEdit">Contract</th><th>Occupant</th><th tal:condition="hasEdit">Contract</th><th tal:condition="hasEdit">Key</th><th tal:condition="hasEdit">Occupancy Date</th><th tal:condition="hasEdit">Insurance</th></tr>
               <tr tal:condition="hasEdit" tal:repeat="spot spots">
                   <td><span tal:replace="spot/title" /> - <a href="" tal:attributes="href python:view.getEditURL(spot)">update</a> -
                       <a href="" tal:attributes="href python:view.getClearURL(spot)">clear</a></td>
                   <td tal:content="spot/spot_size"></td>
-                  <td><span tal:condition="spot/spot_cost" tal:replace="string:$${spot/spot_cost}" /></td>
-                  <td><a href="" tal:attributes="href string:mailto:${python:view.getOwnerEmail(spot)}"><span tal:replace="python:view.getOwnerFullname(spot)" /></a></td>
+                  <td><span tal:condition="spot/spot_cost" tal:replace="string:$ ${spot/spot_cost}" /></td>
+                  <td><a  href="mailto:${python:view.getOwnerEmail(spot)}"><span tal:replace="python:view.getOwnerFullname(spot)" /></a></td>
                   <td tal:define="homeowner_contract nocall:spot/homeowner_contract"><a tal:condition="nocall:homeowner_contract"
                                                                                         href="" tal:attributes="href string:${spot/absolute_url}/@@download/homeowner_contract/${homeowner_contract/filename}">contract</a></td>
-                  <td><a href="" tal:attributes="href string:mailto:${python:view.getRenterEmail(spot)}"><span tal:replace="python:view.getRenterFullname(spot)" /></a></td>
+                  <td><a href="mailto:${python:view.getRenterEmail(spot)}">
+                  <span tal:replace="python:view.getRenterFullname(spot)" />
+                  </a></td>
                   <td tal:define="renter_contract nocall:spot/renter_contract"><a tal:condition="nocall:renter_contract"
                                                                                         href="" tal:attributes="href string:${spot/absolute_url}/@@download/renter_contract/${renter_contract/filename}">contract</a></td>
                   <td tal:content="spot/key_number|nothing"></td>

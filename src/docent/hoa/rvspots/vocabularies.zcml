@@ -14,4 +14,13 @@
         component="docent.hoa.rvspots.vocabularies.IHomnerRenterVocabularyFactory"
     />
 
+    <utility
+  	  component=".vocabularies.HomeOwnerNamesVocabulary"
+      name="docent.hoa.rvspots.vocabularies.HomeOwnerNamesVocabulary" />
+
+    <utility
+  	  component=".vocabularies.RenterNamesVocabulary"
+      name="docent.hoa.rvspots.vocabularies.RenterNamesVocabulary" />
+ 
+
 </configure>
